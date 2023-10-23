@@ -30,6 +30,7 @@ jobs:
         env:
           PAT_TOKEN: ${{ secrets.VERSION_PUSH_PAT }}
         run: |
+          echo "PAT_TOKEN: $PAT_TOKEN"
           git config user.name ${{ secrets.VERSION_PUSH_USERNAME }}
           git config user.email ${{ secrets.VERSION_PUSH_EMAIL }}
           git add .
