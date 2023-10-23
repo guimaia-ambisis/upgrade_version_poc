@@ -28,10 +28,10 @@ jobs:
 
       - name: Commit changes
         env:
-          PAT_TOKEN: ${{ secrets.VERSION_PUSH_PAT }}
+          PAT_TOKEN: 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
         run: |
-          git config --global user.name ${{ secrets.VERSION_PUSH_USERNAME }}
-          git config --global user.email ${{ secrets.VERSION_PUSH_EMAIL }}
+          git config user.name guimaia-ambisis
+          git config user.email guilherme.maia@ambisis.com.br
           git add .
           git commit -m "chore: bump version"
           git push origin main
