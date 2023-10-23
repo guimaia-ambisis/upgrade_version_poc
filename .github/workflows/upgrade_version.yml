@@ -20,12 +20,6 @@ jobs:
           flutter-version: "3.7.12"
           channel: "stable"
 
-      - name: Creating env files
-        run: |
-          echo 'EMPTY_FILE' > .env.dev
-          echo 'EMPTY_FILE' > .env.homolog
-          echo 'EMPTY_FILE' > .env.prod
-
       - name: Install dependencies
         run: flutter pub get
 
