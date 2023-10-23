@@ -1,0 +1,43 @@
+name: deploy homolog
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  update_code_version:
+    name: Updating the code version and commiting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.7.12"
+          channel: "stable"
+
+      - name: Creating env files
+        run: |
+          echo 'EMPTY_FILE' > .env.dev
+          echo 'EMPTY_FILE' > .env.homolog
+          echo 'EMPTY_FILE' > .env.prod
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Update version on pubspec.yaml
+        run: dart scripts/increase_app_version.dart
+
+      - name: Commit changes
+        env:
+          PAT_TOKEN: ${{ secrets.VERSION_PUSH_PAT }}
+        run: |
+          git config user.name ${{ secrets.VERSION_PUSH_USERNAME }}
+          git config user.email ${{ secrets.VERSION_PUSH_EMAIL }}
+          git add .
+          git commit -m "chore: bump version"
+          git push origin main
