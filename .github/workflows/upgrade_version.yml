@@ -31,5 +31,5 @@ jobs:
           PAT_TOKEN: ${{ secrets.VERSIONS_PUSH_PAT }}
         run: |
           git add .
-          git -c user.name="${{ secrets.VERSION_PUSH_USERNAME }}" -c user.email="${{ secrets.VERSION_PUSH_EMAIL }}" commit -m "chore: bump version"
-          git push origin main --force
+          git -c user.name="guimaia-ambisis" -c user.email="guilherme.maia@ambisis.com.br" commit -m "chore: bump version"
+          git push origin main
