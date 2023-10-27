@@ -26,15 +26,10 @@ jobs:
       - name: Update version on pubspec.yaml
         run: dart scripts/increase_app_version.dart
 
-      - name: Setup Git
-        run: |
-          git config --global user.name ${{ secrets.VERSION_PUSH_USERNAME }}
-          git config --global user.email ${{ secrets.VERSION_PUSH_EMAIL }}
-
       - name: Commit changes
         env:
           PAT_TOKEN: ${{ secrets.VERSIONS_PUSH_PAT }}
         run: |
           git add .
-          git commit -m "chore: bump version"
+          git -c user.name="${{ secrets.VERSION_PUSH_USERNAME }}" -c user.email="${{ secrets.VERSION_PUSH_EMAIL }}" commit -m "chore: bump version"
           git push origin main --force
